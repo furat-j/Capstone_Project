@@ -1,0 +1,71 @@
+# The capstone stack. Same two services as Lecture 14, different names and ports
+# so that both can be up at once and neither clobbers the other's data.
+#
+#   postgres  - one container, two databases: airflow (metadata) and waseet (warehouse)
+#   airflow   - scheduler and webserver in one process, LocalExecutor
+#
+# Ports are deliberately not 5432 and 8080. Lecture 14's stack owns those, and
+# you will want it running while you refer back to it.
+#
+#   warehouse  ->  localhost:5442
+#   Airflow UI ->  http://localhost:8081   (admin / admin)
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: waseet-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: de
+      POSTGRES_PASSWORD: de
+      POSTGRES_DB: waseet
+    ports:
+      - "5442:5432"
+    volumes:
+      - waseet_pg:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U de -d waseet"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  airflow:
+    build: .
+    container_name: waseet-airflow
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://de:de@postgres:5432/airflow
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
+      AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: "5"
+      # Inside the container the warehouse is on the compose network at 5432.
+      # From your laptop it is on 5442. Both addresses are correct; they are
+      # just correct from different places.
+      WASEET_DB_URL: postgresql+psycopg2://de:de@postgres:5432/waseet
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./pipeline:/opt/airflow/pipeline
+      - ./data:/opt/airflow/data
+      - ./airflow_logs:/opt/airflow/logs
+    # See the note in Lecture 14's compose file. Three things matter here: the
+    # default connections are loaded (the `FileSensor` in `waseet_daily.py` reads
+    # its path through `fs_default`, which `airflow db migrate` does not create),
+    # the password is written where `airflow standalone` looks for it, and every
+    # line folds into one shell line, so the create command is not wrapped.
+    command: >
+      bash -c "airflow db migrate;
+      airflow connections create-default-connections;
+      airflow users create --username admin --password admin --firstname De --lastname Student --role Admin --email de@example.com ||
+      airflow users reset-password --username admin --password admin;
+      printf admin > /opt/airflow/standalone_admin_password.txt;
+      airflow standalone"
+
+volumes:
+  waseet_pg:

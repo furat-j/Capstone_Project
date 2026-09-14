@@ -1,0 +1,5 @@
+data/
+curated/
+.venv/
+__pycache__/
+airflow_logs/

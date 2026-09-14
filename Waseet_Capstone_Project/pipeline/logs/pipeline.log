@@ -1,0 +1,24 @@
+2026-09-14 07:02:37,881 INFO run starting for 2026-05-04
+2026-09-14 07:02:37,930 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 07:02:37,935 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 07:02:38,109 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 07:02:38,120 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 07:02:38,368 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 07:02:38,377 INFO run finished for 2026-05-04
+2026-09-14 07:08:02,519 INFO run starting for 2026-05-04
+2026-09-14 07:08:02,535 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 07:08:02,536 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 07:08:02,614 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 07:08:02,622 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 07:08:02,843 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 07:08:02,849 INFO run finished for 2026-05-04
+2026-09-14 07:09:13,727 INFO run starting for 2026-05-19
+2026-09-14 07:09:13,741 INFO extract: 1066 rows from ../data/scans_2026-05-19.csv
+2026-09-14 07:09:13,742 ERROR run FAILED for 2026-05-19: Contract violation: missing columns ['weight_kg']
+2026-09-14 07:29:59,906 INFO run starting for 2026-05-04
+2026-09-14 07:29:59,921 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 07:29:59,924 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 07:30:00,031 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 07:30:00,039 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 07:30:00,209 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 07:30:00,226 INFO run finished for 2026-05-04
