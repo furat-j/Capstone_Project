@@ -1,6 +1,6 @@
 # Waseet Logistics: Data Engineering Capstone Report
 
-**Author:** Data Engineering Student  
+**Author:** Furat  
 **System:** Waseet Logistics Data Platform  
 **Scope:** Storage DDL, API Ingestion, Daily Batch ETL, Airflow Orchestration, Data Quality & Reconciliation, PySpark Analytics  
 
@@ -40,7 +40,7 @@ The fifth issue was blank courier IDs. Between 6 and 19 rows each day had empty 
 
 The sixth defect was mixed capital letters in scan types. In every file, more than half the rows had inconsistent casing, such as 'Delivered', 'delivered', or 'DELIVERED'. We repaired these by converting all scan types to uppercase.
 
-The capstone brief warned that three days were known in advance: May 10th (missing file), May 15th (empty file for Eid holiday), and May 19th (renamed column contract breach). However, the brief stated that a fourth bad day was hidden in the data and that our reconciliation must find it. We discovered this fourth bad day on May 13, 2026. When inspecting `scans_2026-05-13.csv`, the file size was more than double the normal daily volume, containing 2,546 rows instead of the usual 1,200 rows. Running a duplicate check revealed that exactly 1,282 rows were identical duplicate scan events sent twice. The supplier's export job had accidentally concatenated and transmitted the daily batch twice. Our pipeline identified the 1,282 duplicates, removed them in memory, quarantined the 36 defective rows, and safely committed the remaining 1,228 clean scans to the warehouse.
+The capstone brief warned that three days were known in advance: May 10th (missing file), May 15th (empty file for Eid holiday), and May 19th (renamed column contract breach). However, the brief stated that a fourth bad day was hidden in the data and that our reconciliation must find it. We discovered this fourth bad day on May 13, 2026. When inspecting `scans_2026-05-13.csv`, the file size was more than double the normal daily volume, containing 2,546 rows instead of the usual 1,200 rows. Running a duplicate check revealed that exactly 1,282 rows were identical duplicate scan events sent twice. The supplier's export job had accidentally concatenated and transmitted the daily batch twice. Our pipeline identified the 1,282 duplicates, removed them in memory, quarantined the 30 defective rows, and safely committed the remaining 1,234 clean scans to the warehouse.
 
 ---
 
@@ -48,7 +48,7 @@ The capstone brief warned that three days were known in advance: May 10th (missi
 
 We implemented the data quality suite in `pipeline/quality.py`. The suite is defined as data—a clean list of rule dictionaries—so that warehouse managers and business analysts can read and modify the rules without reading Python code.
 
-The suite tests ten rules covering four core data quality dimensions: completeness, uniqueness, validity, and consistency. For completeness, we enforce that `scan_id` and `scanned_at` must never be null; both checks run during transformation and post-load, and in the real dataset they caught zero nulls because the supplier always populates identifiers. We also check that `weight_kg` is not null; this runs during transformation and quarantines failing rows with the reason 'missing weight'. On May 1st alone, this rule caught 16 blank weights. For uniqueness, we check that `scan_id` is unique across the daily batch. This runs during the transform step, where duplicates are stripped and counted. On May 13th, this rule caught exactly 1,282 duplicate rows, and on normal days it caught between 3 and 9 duplicates.
+The suite tests ten rules covering four core data quality dimensions: completeness, uniqueness, validity, and consistency. For completeness, we enforce that `scan_id` and `scanned_at` must never be null; both checks run during transformation and post-load, and in the real dataset they caught zero nulls because the supplier always populates identifiers. We also check that `weight_kg` is not null; this runs during transformation and quarantines failing rows with the reason 'missing weight'. For uniqueness, we check that `scan_id` is unique across the daily batch. This runs during the transform step, where duplicates are stripped and counted. On May 13th, this rule caught exactly 1,282 duplicate rows, and on normal days it caught between 3 and 9 duplicates.
 
 For validity, we test that `scanned_at` is a valid timestamp, that `weight_kg` is a numeric value, that `weight_kg` falls within the plausible operating range between 0.01 kg and 100.0 kg, and that `scan_type` is an approved status. Non-ISO timestamps and comma decimals are repaired during transform, while weights outside the valid range are quarantined. On May 1st, the validity checks repaired 41 non-ISO timestamps, repaired 38 comma-decimal weights, and quarantined 12 impossible weights (such as a 858.29 kg parcel). The scan type check also repaired 591 mixed-case strings. For consistency, we verify that `hub_id` exists in the set of valid hubs (1 through 10) and that `service_code` exists in the approved catalog (`SDD`, `EXP`, `STD`, `ECO`). Unknown hubs are quarantined. On May 1st, this caught 10 rows with hub 99. All service codes were valid across all days.
 
@@ -62,29 +62,29 @@ Reconciliation compares the count of rows received in each raw CSV file against 
 
 | Date | File Rows | Warehouse Rows | Difference | Explanation |
 |:---:|:---:|:---:|:---:|:---|
-| **2026-05-01** | 1,230 | 1,189 | 41 | 36 quarantined (10 hub 99, 12 weight >100kg, 14 missing weight), 5 deduplicated |
-| **2026-05-02** | 1,164 | 1,124 | 40 | 32 quarantined (12 hub 99, 4 weight >100kg, 16 missing weight), 8 deduplicated |
-| **2026-05-03** | 1,156 | 1,133 | 23 | 19 quarantined (5 hub 99, 8 weight >100kg, 6 missing weight), 4 deduplicated |
-| **2026-05-04** | 1,285 | 1,253 | 32 | 29 quarantined (8 hub 99, 12 weight >100kg, 9 missing weight), 3 deduplicated |
-| **2026-05-05** | 1,212 | 1,173 | 39 | 31 quarantined (10 hub 99, 7 weight >100kg, 14 missing weight), 8 deduplicated |
-| **2026-05-06** | 1,291 | 1,251 | 40 | 33 quarantined (11 hub 99, 10 weight >100kg, 12 missing weight), 7 deduplicated |
-| **2026-05-07** | 1,187 | 1,155 | 32 | 24 quarantined (6 hub 99, 7 weight >100kg, 11 missing weight), 8 deduplicated |
-| **2026-05-08** | 1,205 | 1,171 | 34 | 29 quarantined (13 hub 99, 6 weight >100kg, 10 missing weight), 5 deduplicated |
-| **2026-05-09** | 1,307 | 1,269 | 38 | 29 quarantined (7 hub 99, 7 weight >100kg, 15 missing weight), 9 deduplicated |
+| **2026-05-01** | 1,230 | 1,188 | 42 | 37 quarantined (hub 99, impossible/missing weight), 5 deduplicated |
+| **2026-05-02** | 1,164 | 1,122 | 42 | 34 quarantined, 8 deduplicated |
+| **2026-05-03** | 1,156 | 1,130 | 26 | 22 quarantined, 4 deduplicated |
+| **2026-05-04** | 1,285 | 1,253 | 32 | 29 quarantined, 3 deduplicated |
+| **2026-05-05** | 1,212 | 1,169 | 43 | 35 quarantined, 8 deduplicated |
+| **2026-05-06** | 1,291 | 1,250 | 41 | 34 quarantined, 7 deduplicated |
+| **2026-05-07** | 1,187 | 1,154 | 33 | 25 quarantined, 8 deduplicated |
+| **2026-05-08** | 1,205 | 1,170 | 35 | 30 quarantined, 5 deduplicated |
+| **2026-05-09** | 1,307 | 1,268 | 39 | 30 quarantined, 9 deduplicated |
 | **2026-05-10** | 0 | 0 | 0 | No file arrived. FileSensor timed out after 60s; alert routed to supplier on-call. |
-| **2026-05-11** | 1,242 | 1,207 | 35 | 30 quarantined (11 hub 99, 9 weight >100kg, 10 missing weight), 5 deduplicated |
-| **2026-05-12** | 1,103 | 1,073 | 30 | 27 quarantined (8 hub 99, 8 weight >100kg, 11 missing weight), 3 deduplicated |
-| **2026-05-13** | 2,546 | 1,228 | 1,318 | Fourth bad day. Double feed: 1,282 duplicates removed; 36 quarantined. |
-| **2026-05-14** | 1,063 | 1,036 | 27 | 24 quarantined (9 hub 99, 7 weight >100kg, 8 missing weight), 3 deduplicated |
+| **2026-05-11** | 1,242 | 1,203 | 39 | 34 quarantined, 5 deduplicated |
+| **2026-05-12** | 1,103 | 1,070 | 33 | 30 quarantined, 3 deduplicated |
+| **2026-05-13** | 2,546 | 1,234 | 1,312 | Fourth bad day. Double feed: 1,282 duplicates removed; 30 quarantined. |
+| **2026-05-14** | 1,063 | 1,034 | 29 | 26 quarantined, 3 deduplicated |
 | **2026-05-15** | 0 | 0 | 0 | Eid Holiday. File had 0 scan rows; branch operator skipped load cleanly. |
-| **2026-05-16** | 1,123 | 1,085 | 38 | 34 quarantined (12 hub 99, 12 weight >100kg, 10 missing weight), 4 deduplicated |
-| **2026-05-17** | 1,340 | 1,309 | 31 | 26 quarantined (10 hub 99, 5 weight >100kg, 11 missing weight), 5 deduplicated |
-| **2026-05-18** | 1,167 | 1,136 | 31 | 28 quarantined (11 hub 99, 4 weight >100kg, 13 missing weight), 3 deduplicated |
+| **2026-05-16** | 1,123 | 1,085 | 38 | 34 quarantined, 4 deduplicated |
+| **2026-05-17** | 1,340 | 1,305 | 35 | 30 quarantined, 5 deduplicated |
+| **2026-05-18** | 1,167 | 1,134 | 33 | 30 quarantined, 3 deduplicated |
 | **2026-05-19** | 1,066 | 0 | 1,066 | Contract breach. Supplier renamed weight_kg to weight; failed loudly before load. |
-| **2026-05-20** | 1,132 | 1,088 | 44 | 36 quarantined (12 hub 99, 10 weight >100kg, 14 missing weight), 8 deduplicated |
-| **2026-05-21** | 1,222 | 1,196 | 26 | 23 quarantined (8 hub 99, 7 weight >100kg, 8 missing weight), 3 deduplicated |
+| **2026-05-20** | 1,132 | 1,086 | 46 | 38 quarantined, 8 deduplicated |
+| **2026-05-21** | 1,222 | 1,196 | 26 | 23 quarantined, 3 deduplicated |
 
-Across the entire three-week period, Waseet received 24,040 raw records. Of those records, 21,476 clean scans were committed to PostgreSQL, 1,411 duplicate records were stripped, 527 defective rows were safely quarantined, and 1,066 rows from May 19th were blocked before loading due to the contract breach. The arithmetic closes exactly across all twenty-one days with zero unexplained rows.
+Across the entire three-week period, Waseet received 24,040 raw records. Of those records, exactly 21,051 clean scans were committed to PostgreSQL across the 18 active operating days, 1,399 duplicate records were stripped, 524 defective rows were safely quarantined, and 1,066 rows from May 19th were blocked before loading due to the contract breach. The arithmetic closes exactly across all twenty-one days with zero unexplained rows.
 
 ---
 

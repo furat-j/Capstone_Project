@@ -1,24 +1,435 @@
-2026-09-14 07:02:37,881 INFO run starting for 2026-05-04
-2026-09-14 07:02:37,930 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
-2026-09-14 07:02:37,935 INFO contract: ok, 9 columns, 1285 rows
-2026-09-14 07:02:38,109 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
-2026-09-14 07:02:38,120 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
-2026-09-14 07:02:38,368 INFO load: 1253 rows committed for 2026-05-04
-2026-09-14 07:02:38,377 INFO run finished for 2026-05-04
-2026-09-14 07:08:02,519 INFO run starting for 2026-05-04
-2026-09-14 07:08:02,535 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
-2026-09-14 07:08:02,536 INFO contract: ok, 9 columns, 1285 rows
-2026-09-14 07:08:02,614 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
-2026-09-14 07:08:02,622 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
-2026-09-14 07:08:02,843 INFO load: 1253 rows committed for 2026-05-04
-2026-09-14 07:08:02,849 INFO run finished for 2026-05-04
-2026-09-14 07:09:13,727 INFO run starting for 2026-05-19
-2026-09-14 07:09:13,741 INFO extract: 1066 rows from ../data/scans_2026-05-19.csv
-2026-09-14 07:09:13,742 ERROR run FAILED for 2026-05-19: Contract violation: missing columns ['weight_kg']
-2026-09-14 07:29:59,906 INFO run starting for 2026-05-04
-2026-09-14 07:29:59,921 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
-2026-09-14 07:29:59,924 INFO contract: ok, 9 columns, 1285 rows
-2026-09-14 07:30:00,031 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
-2026-09-14 07:30:00,039 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
-2026-09-14 07:30:00,209 INFO load: 1253 rows committed for 2026-05-04
-2026-09-14 07:30:00,226 INFO run finished for 2026-05-04
+2026-09-14 09:58:28,974 INFO run starting for 2026-05-04
+2026-09-14 09:58:29,025 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 09:58:29,026 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 09:58:29,159 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 09:58:29,167 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 09:58:29,284 ERROR run FAILED for 2026-05-04: Execution failed on sql 'INSERT INTO parcel_scans (scan_id, parcel_id, customer_id, scanned_at, hub_id, courier_id, scan_type, weight_kg, service_code) VALUES (:scan_id, :parcel_id, :customer_id, :scanned_at, :hub_id, :courier_id, :scan_type, :weight_kg, :service_code)': (psycopg2.errors.ForeignKeyViolation) insert or update on table "parcel_scans" violates foreign key constraint "parcel_scans_hub_id_fkey"
+DETAIL:  Key (hub_id)=(6) is not present in table "hubs".
+
+[SQL: INSERT INTO parcel_scans (scan_id, parcel_id, customer_id, scanned_at, hub_id, courier_id, scan_type, weight_kg, service_code) VALUES (%(scan_id__0)s, %(parcel_id__0)s, %(customer_id__0)s, %(scanned_at__0)s, %(hub_id__0)s, %(courier_id__0)s, %(scan_t ... 182792 characters truncated ... %(hub_id__999)s, %(courier_id__999)s, %(scan_type__999)s, %(weight_kg__999)s, %(service_code__999)s)]
+[parameters: {'parcel_id__0': 7001369, 'hub_id__0': 6, 'courier_id__0': 131, 'weight_kg__0': 39.16, 'customer_id__0': 5052, 'scan_id__0': 904568, 'scan_type__0': 'ARRIVE', 'service_code__0': 'STD', 'scanned_at__0': datetime.datetime(2026, 5, 4, 12, 34, 1), 'parcel_id__1': 7001164, 'hub_id__1': 10, 'courier_id__1': 117, 'weight_kg__1': 36.63, 'customer_id__1': 5006, 'scan_id__1': 903844, 'scan_type__1': 'FAILED', 'service_code__1': 'STD', 'scanned_at__1': datetime.datetime(2026, 5, 4, 12, 22, 45), 'parcel_id__2': 7001244, 'hub_id__2': 6, 'courier_id__2': 107, 'weight_kg__2': 4.53, 'customer_id__2': 5171, 'scan_id__2': 904162, 'scan_type__2': 'FAILED', 'service_code__2': 'STD', 'scanned_at__2': datetime.datetime(2026, 5, 4, 18, 19, 59), 'parcel_id__3': 7001318, 'hub_id__3': 1, 'courier_id__3': 113, 'weight_kg__3': 46.02, 'customer_id__3': 5005, 'scan_id__3': 904393, 'scan_type__3': 'FAILED', 'service_code__3': 'EXP', 'scanned_at__3': datetime.datetime(2026, 5, 4, 15, 54, 40), 'parcel_id__4': 7001352, 'hub_id__4': 4, 'courier_id__4': 106, 'weight_kg__4': 35.16, 'customer_id__4': 5186, 'scan_id__4': 904513, 'scan_type__4': 'DELIVERED', 'service_code__4': 'ECO', 'scanned_at__4': datetime.datetime(2026, 5, 4, 6, 37, 13), 'parcel_id__5': 7001392, 'hub_id__5': 8, 'courier_id__5': 125, 'weight_kg__5': 5.91, 'customer_id__5': 5110 ... 8900 parameters truncated ... 'customer_id__994': 5116, 'scan_id__994': 904310, 'scan_type__994': 'DELIVERED', 'service_code__994': 'STD', 'scanned_at__994': datetime.datetime(2026, 5, 4, 7, 47, 3), 'parcel_id__995': 7001147, 'hub_id__995': 3, 'courier_id__995': 110, 'weight_kg__995': 38.54, 'customer_id__995': 5001, 'scan_id__995': 903793, 'scan_type__995': 'PICKUP', 'service_code__995': 'EXP', 'scanned_at__995': datetime.datetime(2026, 5, 4, 6, 38, 54), 'parcel_id__996': 7001220, 'hub_id__996': 9, 'courier_id__996': 120, 'weight_kg__996': 0.98, 'customer_id__996': 5158, 'scan_id__996': 904041, 'scan_type__996': 'OUT_FOR_DELIVERY', 'service_code__996': 'STD', 'scanned_at__996': datetime.datetime(2026, 5, 4, 15, 53, 42), 'parcel_id__997': 7001359, 'hub_id__997': 1, 'courier_id__997': 132, 'weight_kg__997': 34.42, 'customer_id__997': 5154, 'scan_id__997': 904538, 'scan_type__997': 'PICKUP', 'service_code__997': 'ECO', 'scanned_at__997': datetime.datetime(2026, 5, 4, 8, 27, 26), 'parcel_id__998': 7001195, 'hub_id__998': 2, 'courier_id__998': 126, 'weight_kg__998': 13.43, 'customer_id__998': 5076, 'scan_id__998': 903956, 'scan_type__998': 'PICKUP', 'service_code__998': 'ECO', 'scanned_at__998': datetime.datetime(2026, 5, 4, 7, 27, 53), 'parcel_id__999': 7001123, 'hub_id__999': 10, 'courier_id__999': 136, 'weight_kg__999': 7.6, 'customer_id__999': 5016, 'scan_id__999': 903700, 'scan_type__999': 'DELIVERED', 'service_code__999': 'STD', 'scanned_at__999': datetime.datetime(2026, 5, 4, 15, 44, 27)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-09-14 09:59:37,942 INFO run starting for 2026-05-04
+2026-09-14 09:59:37,963 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 09:59:37,963 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 09:59:38,053 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 09:59:38,058 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 09:59:38,240 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 09:59:38,247 INFO run finished for 2026-05-04
+2026-09-14 10:00:06,146 INFO run starting for 2026-05-04
+2026-09-14 10:00:06,165 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 10:00:06,165 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 10:00:06,296 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 10:00:06,300 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 10:00:06,497 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 10:00:06,503 INFO run finished for 2026-05-04
+2026-09-14 21:46:15,859 INFO run starting for 2026-05-04
+2026-09-14 21:46:15,909 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 21:46:15,910 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 21:46:16,117 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 21:46:16,125 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 21:46:16,326 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 21:46:16,341 INFO run finished for 2026-05-04
+2026-09-14 18:48:03,121 INFO run starting for 2026-05-04
+2026-09-14 18:48:03,147 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 18:48:03,151 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 18:48:03,281 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 18:48:03,297 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 18:48:03,487 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 18:48:03,495 INFO run finished for 2026-05-04
+2026-09-14 18:48:04,386 INFO run starting for 2026-05-04
+2026-09-14 18:48:04,413 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 18:48:04,414 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 18:48:04,555 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 18:48:04,563 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 18:48:04,761 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 18:48:04,770 INFO run finished for 2026-05-04
+2026-09-14 18:58:25,816 INFO run starting for 2026-05-04
+2026-09-14 18:58:25,963 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 18:58:26,117 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 18:58:26,408 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 18:58:26,424 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 18:58:26,625 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 18:58:26,631 INFO run starting for 2026-05-04
+2026-09-14 18:58:26,638 INFO run finished for 2026-05-04
+2026-09-14 18:58:26,647 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 18:58:26,648 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 18:58:26,726 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 18:58:26,732 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 18:58:26,847 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 18:58:26,854 INFO run finished for 2026-05-04
+2026-09-14 22:17:59,231 INFO run starting for 2026-05-01
+2026-09-14 22:17:59,305 INFO extract: 1230 rows from ../data/scans_2026-05-01.csv
+2026-09-14 22:17:59,305 INFO contract: ok, 9 columns, 1230 rows
+2026-09-14 22:17:59,446 WARNING quarantined 37 rows to quarantine/rejects_2026-05-01.csv
+2026-09-14 22:17:59,456 INFO transform: 1230 read = 1188 good + 37 rejected + 5 duplicates
+2026-09-14 22:18:00,120 INFO load: 1188 rows committed for 2026-05-01
+2026-09-14 22:18:00,257 INFO run finished for 2026-05-01
+2026-09-14 22:18:01,875 INFO run starting for 2026-05-02
+2026-09-14 22:18:01,913 INFO extract: 1164 rows from ../data/scans_2026-05-02.csv
+2026-09-14 22:18:01,914 INFO contract: ok, 9 columns, 1164 rows
+2026-09-14 22:18:02,017 WARNING quarantined 34 rows to quarantine/rejects_2026-05-02.csv
+2026-09-14 22:18:02,021 INFO transform: 1164 read = 1122 good + 34 rejected + 8 duplicates
+2026-09-14 22:18:02,131 INFO load: 1122 rows committed for 2026-05-02
+2026-09-14 22:18:02,137 INFO run finished for 2026-05-02
+2026-09-14 22:18:03,742 INFO run starting for 2026-05-03
+2026-09-14 22:18:03,770 INFO extract: 1156 rows from ../data/scans_2026-05-03.csv
+2026-09-14 22:18:03,771 INFO contract: ok, 9 columns, 1156 rows
+2026-09-14 22:18:03,860 WARNING quarantined 22 rows to quarantine/rejects_2026-05-03.csv
+2026-09-14 22:18:03,867 INFO transform: 1156 read = 1130 good + 22 rejected + 4 duplicates
+2026-09-14 22:18:04,016 INFO load: 1130 rows committed for 2026-05-03
+2026-09-14 22:18:04,024 INFO run finished for 2026-05-03
+2026-09-14 22:18:05,725 INFO run starting for 2026-05-04
+2026-09-14 22:18:05,748 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 22:18:05,748 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 22:18:05,836 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 22:18:05,842 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 22:18:06,011 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 22:18:06,020 INFO run finished for 2026-05-04
+2026-09-14 22:18:07,543 INFO run starting for 2026-05-05
+2026-09-14 22:18:07,574 INFO extract: 1212 rows from ../data/scans_2026-05-05.csv
+2026-09-14 22:18:07,574 INFO contract: ok, 9 columns, 1212 rows
+2026-09-14 22:18:07,661 WARNING quarantined 35 rows to quarantine/rejects_2026-05-05.csv
+2026-09-14 22:18:07,666 INFO transform: 1212 read = 1169 good + 35 rejected + 8 duplicates
+2026-09-14 22:18:07,825 INFO load: 1169 rows committed for 2026-05-05
+2026-09-14 22:18:07,833 INFO run finished for 2026-05-05
+2026-09-14 22:18:09,385 INFO run starting for 2026-05-06
+2026-09-14 22:18:09,434 INFO extract: 1291 rows from ../data/scans_2026-05-06.csv
+2026-09-14 22:18:09,435 INFO contract: ok, 9 columns, 1291 rows
+2026-09-14 22:18:09,529 WARNING quarantined 34 rows to quarantine/rejects_2026-05-06.csv
+2026-09-14 22:18:09,534 INFO transform: 1291 read = 1250 good + 34 rejected + 7 duplicates
+2026-09-14 22:18:09,698 INFO load: 1250 rows committed for 2026-05-06
+2026-09-14 22:18:09,707 INFO run finished for 2026-05-06
+2026-09-14 22:18:11,293 INFO run starting for 2026-05-07
+2026-09-14 22:18:11,327 INFO extract: 1187 rows from ../data/scans_2026-05-07.csv
+2026-09-14 22:18:11,328 INFO contract: ok, 9 columns, 1187 rows
+2026-09-14 22:18:11,421 WARNING quarantined 25 rows to quarantine/rejects_2026-05-07.csv
+2026-09-14 22:18:11,427 INFO transform: 1187 read = 1154 good + 25 rejected + 8 duplicates
+2026-09-14 22:18:11,600 INFO load: 1154 rows committed for 2026-05-07
+2026-09-14 22:18:11,608 INFO run finished for 2026-05-07
+2026-09-14 22:18:13,201 INFO run starting for 2026-05-08
+2026-09-14 22:18:13,326 INFO extract: 1205 rows from ../data/scans_2026-05-08.csv
+2026-09-14 22:18:13,326 INFO contract: ok, 9 columns, 1205 rows
+2026-09-14 22:18:13,497 WARNING quarantined 30 rows to quarantine/rejects_2026-05-08.csv
+2026-09-14 22:18:13,505 INFO transform: 1205 read = 1170 good + 30 rejected + 5 duplicates
+2026-09-14 22:18:13,747 INFO load: 1170 rows committed for 2026-05-08
+2026-09-14 22:18:13,817 INFO run finished for 2026-05-08
+2026-09-14 22:18:15,501 INFO run starting for 2026-05-09
+2026-09-14 22:18:15,599 INFO extract: 1307 rows from ../data/scans_2026-05-09.csv
+2026-09-14 22:18:15,599 INFO contract: ok, 9 columns, 1307 rows
+2026-09-14 22:18:15,693 WARNING quarantined 30 rows to quarantine/rejects_2026-05-09.csv
+2026-09-14 22:18:15,698 INFO transform: 1307 read = 1268 good + 30 rejected + 9 duplicates
+2026-09-14 22:18:15,833 INFO load: 1268 rows committed for 2026-05-09
+2026-09-14 22:18:15,842 INFO run finished for 2026-05-09
+2026-09-14 22:18:17,377 INFO run starting for 2026-05-10
+2026-09-14 22:18:17,378 ERROR run FAILED for 2026-05-10: Scan file not found: ../data/scans_2026-05-10.csv
+2026-09-14 22:18:19,067 INFO run starting for 2026-05-11
+2026-09-14 22:18:19,097 INFO extract: 1242 rows from ../data/scans_2026-05-11.csv
+2026-09-14 22:18:19,097 INFO contract: ok, 9 columns, 1242 rows
+2026-09-14 22:18:19,199 WARNING quarantined 34 rows to quarantine/rejects_2026-05-11.csv
+2026-09-14 22:18:19,204 INFO transform: 1242 read = 1203 good + 34 rejected + 5 duplicates
+2026-09-14 22:18:19,384 INFO load: 1203 rows committed for 2026-05-11
+2026-09-14 22:18:19,392 INFO run finished for 2026-05-11
+2026-09-14 22:18:20,935 INFO run starting for 2026-05-12
+2026-09-14 22:18:20,970 INFO extract: 1103 rows from ../data/scans_2026-05-12.csv
+2026-09-14 22:18:20,970 INFO contract: ok, 9 columns, 1103 rows
+2026-09-14 22:18:21,067 WARNING quarantined 30 rows to quarantine/rejects_2026-05-12.csv
+2026-09-14 22:18:21,072 INFO transform: 1103 read = 1070 good + 30 rejected + 3 duplicates
+2026-09-14 22:18:21,249 INFO load: 1070 rows committed for 2026-05-12
+2026-09-14 22:18:21,257 INFO run finished for 2026-05-12
+2026-09-14 22:18:22,758 INFO run starting for 2026-05-13
+2026-09-14 22:18:22,806 INFO extract: 2546 rows from ../data/scans_2026-05-13.csv
+2026-09-14 22:18:22,806 INFO contract: ok, 9 columns, 2546 rows
+2026-09-14 22:18:22,911 WARNING quarantined 30 rows to quarantine/rejects_2026-05-13.csv
+2026-09-14 22:18:22,916 INFO transform: 2546 read = 1234 good + 30 rejected + 1282 duplicates
+2026-09-14 22:18:23,044 INFO load: 1234 rows committed for 2026-05-13
+2026-09-14 22:18:23,053 INFO run finished for 2026-05-13
+2026-09-14 22:18:24,551 INFO run starting for 2026-05-14
+2026-09-14 22:18:24,586 INFO extract: 1063 rows from ../data/scans_2026-05-14.csv
+2026-09-14 22:18:24,587 INFO contract: ok, 9 columns, 1063 rows
+2026-09-14 22:18:24,680 WARNING quarantined 26 rows to quarantine/rejects_2026-05-14.csv
+2026-09-14 22:18:24,684 INFO transform: 1063 read = 1034 good + 26 rejected + 3 duplicates
+2026-09-14 22:18:24,843 INFO load: 1034 rows committed for 2026-05-14
+2026-09-14 22:18:24,850 INFO run finished for 2026-05-14
+2026-09-14 22:18:26,377 INFO run starting for 2026-05-15
+2026-09-14 22:18:26,409 INFO extract: 0 rows from ../data/scans_2026-05-15.csv
+2026-09-14 22:18:26,410 ERROR run FAILED for 2026-05-15: Contract violation: scan file is empty
+2026-09-14 22:18:28,083 INFO run starting for 2026-05-16
+2026-09-14 22:18:28,116 INFO extract: 1123 rows from ../data/scans_2026-05-16.csv
+2026-09-14 22:18:28,117 INFO contract: ok, 9 columns, 1123 rows
+2026-09-14 22:18:28,232 WARNING quarantined 34 rows to quarantine/rejects_2026-05-16.csv
+2026-09-14 22:18:28,238 INFO transform: 1123 read = 1085 good + 34 rejected + 4 duplicates
+2026-09-14 22:18:28,422 INFO load: 1085 rows committed for 2026-05-16
+2026-09-14 22:18:28,429 INFO run finished for 2026-05-16
+2026-09-14 22:18:29,890 INFO run starting for 2026-05-17
+2026-09-14 22:18:29,919 INFO extract: 1340 rows from ../data/scans_2026-05-17.csv
+2026-09-14 22:18:29,920 INFO contract: ok, 9 columns, 1340 rows
+2026-09-14 22:18:30,002 WARNING quarantined 30 rows to quarantine/rejects_2026-05-17.csv
+2026-09-14 22:18:30,008 INFO transform: 1340 read = 1305 good + 30 rejected + 5 duplicates
+2026-09-14 22:18:30,223 INFO load: 1305 rows committed for 2026-05-17
+2026-09-14 22:18:30,231 INFO run finished for 2026-05-17
+2026-09-14 22:18:31,848 INFO run starting for 2026-05-18
+2026-09-14 22:18:31,902 INFO extract: 1167 rows from ../data/scans_2026-05-18.csv
+2026-09-14 22:18:31,902 INFO contract: ok, 9 columns, 1167 rows
+2026-09-14 22:18:31,988 WARNING quarantined 30 rows to quarantine/rejects_2026-05-18.csv
+2026-09-14 22:18:31,992 INFO transform: 1167 read = 1134 good + 30 rejected + 3 duplicates
+2026-09-14 22:18:32,152 INFO load: 1134 rows committed for 2026-05-18
+2026-09-14 22:18:32,158 INFO run finished for 2026-05-18
+2026-09-14 22:18:33,785 INFO run starting for 2026-05-19
+2026-09-14 22:18:33,818 INFO extract: 1066 rows from ../data/scans_2026-05-19.csv
+2026-09-14 22:18:33,819 ERROR run FAILED for 2026-05-19: Contract violation: missing columns ['weight_kg']
+2026-09-14 22:18:35,434 INFO run starting for 2026-05-20
+2026-09-14 22:18:35,470 INFO extract: 1132 rows from ../data/scans_2026-05-20.csv
+2026-09-14 22:18:35,470 INFO contract: ok, 9 columns, 1132 rows
+2026-09-14 22:18:35,570 WARNING quarantined 38 rows to quarantine/rejects_2026-05-20.csv
+2026-09-14 22:18:35,575 INFO transform: 1132 read = 1086 good + 38 rejected + 8 duplicates
+2026-09-14 22:18:35,740 INFO load: 1086 rows committed for 2026-05-20
+2026-09-14 22:18:35,748 INFO run finished for 2026-05-20
+2026-09-14 22:18:37,399 INFO run starting for 2026-05-21
+2026-09-14 22:18:37,428 INFO extract: 1222 rows from ../data/scans_2026-05-21.csv
+2026-09-14 22:18:37,429 INFO contract: ok, 9 columns, 1222 rows
+2026-09-14 22:18:37,528 WARNING quarantined 23 rows to quarantine/rejects_2026-05-21.csv
+2026-09-14 22:18:37,534 INFO transform: 1222 read = 1196 good + 23 rejected + 3 duplicates
+2026-09-14 22:18:37,688 INFO load: 1196 rows committed for 2026-05-21
+2026-09-14 22:18:37,695 INFO run finished for 2026-05-21
+2026-09-14 20:01:51,853 INFO run starting for 2026-05-12
+2026-09-14 20:01:51,858 INFO run starting for 2026-05-05
+2026-09-14 20:01:51,893 INFO run starting for 2026-05-04
+2026-09-14 20:01:51,904 INFO run starting for 2026-05-06
+2026-09-14 20:01:51,907 INFO run starting for 2026-05-07
+2026-09-14 20:01:51,909 INFO run starting for 2026-05-14
+2026-09-14 20:01:51,923 INFO run starting for 2026-05-13
+2026-09-14 20:01:51,938 INFO run starting for 2026-05-11
+2026-09-14 20:01:51,939 INFO run starting for 2026-05-03
+2026-09-14 20:01:51,949 INFO run starting for 2026-05-01
+2026-09-14 20:01:51,954 INFO run starting for 2026-05-16
+2026-09-14 20:01:51,977 INFO extract: 1212 rows from ../data/scans_2026-05-05.csv
+2026-09-14 20:01:51,978 INFO extract: 1103 rows from ../data/scans_2026-05-12.csv
+2026-09-14 20:01:51,978 INFO run starting for 2026-05-08
+2026-09-14 20:01:51,994 INFO run starting for 2026-05-09
+2026-09-14 20:01:52,009 INFO contract: ok, 9 columns, 1212 rows
+2026-09-14 20:01:52,015 INFO contract: ok, 9 columns, 1103 rows
+2026-09-14 20:01:52,053 INFO extract: 1291 rows from ../data/scans_2026-05-06.csv
+2026-09-14 20:01:52,056 INFO extract: 1187 rows from ../data/scans_2026-05-07.csv
+2026-09-14 20:01:52,061 INFO contract: ok, 9 columns, 1187 rows
+2026-09-14 20:01:52,062 INFO extract: 1063 rows from ../data/scans_2026-05-14.csv
+2026-09-14 20:01:52,065 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 20:01:52,065 INFO contract: ok, 9 columns, 1063 rows
+2026-09-14 20:01:52,066 INFO contract: ok, 9 columns, 1291 rows
+2026-09-14 20:01:52,077 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 20:01:52,095 INFO extract: 1230 rows from ../data/scans_2026-05-01.csv
+2026-09-14 20:01:52,099 INFO contract: ok, 9 columns, 1230 rows
+2026-09-14 20:01:52,099 INFO extract: 2546 rows from ../data/scans_2026-05-13.csv
+2026-09-14 20:01:52,106 INFO contract: ok, 9 columns, 2546 rows
+2026-09-14 20:01:52,124 INFO extract: 1156 rows from ../data/scans_2026-05-03.csv
+2026-09-14 20:01:52,125 INFO extract: 1123 rows from ../data/scans_2026-05-16.csv
+2026-09-14 20:01:52,127 INFO contract: ok, 9 columns, 1156 rows
+2026-09-14 20:01:52,127 INFO extract: 1307 rows from ../data/scans_2026-05-09.csv
+2026-09-14 20:01:52,128 INFO contract: ok, 9 columns, 1123 rows
+2026-09-14 20:01:52,128 INFO extract: 1242 rows from ../data/scans_2026-05-11.csv
+2026-09-14 20:01:52,132 INFO contract: ok, 9 columns, 1242 rows
+2026-09-14 20:01:52,132 INFO contract: ok, 9 columns, 1307 rows
+2026-09-14 20:01:52,136 INFO extract: 1205 rows from ../data/scans_2026-05-08.csv
+2026-09-14 20:01:52,139 INFO contract: ok, 9 columns, 1205 rows
+2026-09-14 20:01:52,343 INFO run starting for 2026-05-02
+2026-09-14 20:01:52,476 INFO extract: 1164 rows from ../data/scans_2026-05-02.csv
+2026-09-14 20:01:52,488 INFO contract: ok, 9 columns, 1164 rows
+2026-09-14 20:01:52,802 WARNING quarantined 25 rows to quarantine/rejects_2026-05-07.csv
+2026-09-14 20:01:52,810 WARNING quarantined 34 rows to quarantine/rejects_2026-05-16.csv
+2026-09-14 20:01:52,840 INFO transform: 1123 read = 1085 good + 34 rejected + 4 duplicates
+2026-09-14 20:01:52,844 INFO transform: 1187 read = 1154 good + 25 rejected + 8 duplicates
+2026-09-14 20:01:52,877 WARNING quarantined 34 rows to quarantine/rejects_2026-05-11.csv
+2026-09-14 20:01:52,878 WARNING quarantined 22 rows to quarantine/rejects_2026-05-03.csv
+2026-09-14 20:01:52,925 INFO transform: 1242 read = 1203 good + 34 rejected + 5 duplicates
+2026-09-14 20:01:52,945 INFO transform: 1156 read = 1130 good + 22 rejected + 4 duplicates
+2026-09-14 20:01:53,003 WARNING quarantined 30 rows to quarantine/rejects_2026-05-13.csv
+2026-09-14 20:01:53,008 WARNING quarantined 30 rows to quarantine/rejects_2026-05-08.csv
+2026-09-14 20:01:53,029 INFO transform: 2546 read = 1234 good + 30 rejected + 1282 duplicates
+2026-09-14 20:01:53,072 WARNING quarantined 30 rows to quarantine/rejects_2026-05-09.csv
+2026-09-14 20:01:53,088 INFO transform: 1205 read = 1170 good + 30 rejected + 5 duplicates
+2026-09-14 20:01:53,114 WARNING quarantined 26 rows to quarantine/rejects_2026-05-14.csv
+2026-09-14 20:01:53,176 INFO transform: 1307 read = 1268 good + 30 rejected + 9 duplicates
+2026-09-14 20:01:53,237 INFO transform: 1063 read = 1034 good + 26 rejected + 3 duplicates
+2026-09-14 20:01:53,244 WARNING quarantined 37 rows to quarantine/rejects_2026-05-01.csv
+2026-09-14 20:01:53,273 INFO transform: 1230 read = 1188 good + 37 rejected + 5 duplicates
+2026-09-14 20:01:53,400 WARNING quarantined 35 rows to quarantine/rejects_2026-05-05.csv
+2026-09-14 20:01:53,408 WARNING quarantined 30 rows to quarantine/rejects_2026-05-12.csv
+2026-09-14 20:01:53,413 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 20:01:53,440 INFO transform: 1212 read = 1169 good + 35 rejected + 8 duplicates
+2026-09-14 20:01:53,449 INFO transform: 1103 read = 1070 good + 30 rejected + 3 duplicates
+2026-09-14 20:01:53,465 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 20:01:53,528 WARNING quarantined 34 rows to quarantine/rejects_2026-05-06.csv
+2026-09-14 20:01:53,572 WARNING quarantined 34 rows to quarantine/rejects_2026-05-02.csv
+2026-09-14 20:01:53,572 INFO transform: 1291 read = 1250 good + 34 rejected + 7 duplicates
+2026-09-14 20:01:53,598 INFO transform: 1164 read = 1122 good + 34 rejected + 8 duplicates
+2026-09-14 20:01:54,336 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 20:01:54,391 INFO load: 1085 rows committed for 2026-05-16
+2026-09-14 20:01:54,400 INFO load: 1154 rows committed for 2026-05-07
+2026-09-14 20:01:54,407 INFO load: 1169 rows committed for 2026-05-05
+2026-09-14 20:01:54,441 INFO run finished for 2026-05-05
+2026-09-14 20:01:54,566 INFO run finished for 2026-05-04
+2026-09-14 20:01:54,589 INFO run finished for 2026-05-16
+2026-09-14 20:01:54,617 INFO run finished for 2026-05-07
+2026-09-14 20:01:54,869 INFO load: 1130 rows committed for 2026-05-03
+2026-09-14 20:01:54,894 INFO run finished for 2026-05-03
+2026-09-14 20:01:54,955 INFO load: 1188 rows committed for 2026-05-01
+2026-09-14 20:01:55,028 INFO run finished for 2026-05-01
+2026-09-14 20:01:55,175 INFO load: 1070 rows committed for 2026-05-12
+2026-09-14 20:01:55,198 INFO run finished for 2026-05-12
+2026-09-14 20:01:55,310 INFO load: 1122 rows committed for 2026-05-02
+2026-09-14 20:01:55,317 INFO load: 1170 rows committed for 2026-05-08
+2026-09-14 20:01:55,325 INFO load: 1034 rows committed for 2026-05-14
+2026-09-14 20:01:55,357 INFO run finished for 2026-05-02
+2026-09-14 20:01:55,357 INFO run finished for 2026-05-14
+2026-09-14 20:01:55,358 INFO load: 1203 rows committed for 2026-05-11
+2026-09-14 20:01:55,364 INFO run finished for 2026-05-08
+2026-09-14 20:01:55,401 INFO run finished for 2026-05-11
+2026-09-14 20:01:55,402 INFO load: 1268 rows committed for 2026-05-09
+2026-09-14 20:01:55,404 INFO load: 1234 rows committed for 2026-05-13
+2026-09-14 20:01:55,406 INFO load: 1250 rows committed for 2026-05-06
+2026-09-14 20:01:55,426 INFO run finished for 2026-05-13
+2026-09-14 20:01:55,429 INFO run finished for 2026-05-09
+2026-09-14 20:01:55,435 INFO run finished for 2026-05-06
+2026-09-14 20:20:45,084 INFO run starting for 2026-05-04
+2026-09-14 20:20:45,104 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 20:20:45,114 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 20:20:45,255 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 20:20:45,266 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 20:20:45,410 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 20:20:45,421 INFO run finished for 2026-05-04
+2026-09-14 20:22:16,801 INFO run starting for 2026-05-06
+2026-09-14 20:22:16,814 INFO extract: 1291 rows from ../data/scans_2026-05-06.csv
+2026-09-14 20:22:16,814 INFO contract: ok, 9 columns, 1291 rows
+2026-09-14 20:22:16,888 WARNING quarantined 34 rows to quarantine/rejects_2026-05-06.csv
+2026-09-14 20:22:16,893 INFO transform: 1291 read = 1250 good + 34 rejected + 7 duplicates
+2026-09-14 20:22:17,022 INFO load: 1250 rows committed for 2026-05-06
+2026-09-14 20:22:17,027 INFO run finished for 2026-05-06
+2026-09-14 20:28:31,058 INFO run starting for 2026-05-01
+2026-09-14 20:28:31,072 INFO extract: 1230 rows from ../data/scans_2026-05-01.csv
+2026-09-14 20:28:31,073 INFO contract: ok, 9 columns, 1230 rows
+2026-09-14 20:28:31,144 WARNING quarantined 37 rows to quarantine/rejects_2026-05-01.csv
+2026-09-14 20:28:31,150 INFO transform: 1230 read = 1188 good + 37 rejected + 5 duplicates
+2026-09-14 20:28:31,276 INFO load: 1188 rows committed for 2026-05-01
+2026-09-14 20:28:31,282 INFO run finished for 2026-05-01
+2026-09-14 20:28:40,237 INFO run starting for 2026-05-02
+2026-09-14 20:28:40,250 INFO extract: 1164 rows from ../data/scans_2026-05-02.csv
+2026-09-14 20:28:40,251 INFO contract: ok, 9 columns, 1164 rows
+2026-09-14 20:28:40,383 WARNING quarantined 34 rows to quarantine/rejects_2026-05-02.csv
+2026-09-14 20:28:40,388 INFO transform: 1164 read = 1122 good + 34 rejected + 8 duplicates
+2026-09-14 20:28:40,743 INFO load: 1122 rows committed for 2026-05-02
+2026-09-14 20:28:40,750 INFO run finished for 2026-05-02
+2026-09-14 20:28:49,638 INFO run starting for 2026-05-03
+2026-09-14 20:28:49,650 INFO extract: 1156 rows from ../data/scans_2026-05-03.csv
+2026-09-14 20:28:49,651 INFO contract: ok, 9 columns, 1156 rows
+2026-09-14 20:28:49,722 WARNING quarantined 22 rows to quarantine/rejects_2026-05-03.csv
+2026-09-14 20:28:49,728 INFO transform: 1156 read = 1130 good + 22 rejected + 4 duplicates
+2026-09-14 20:28:49,847 INFO load: 1130 rows committed for 2026-05-03
+2026-09-14 20:28:49,856 INFO run finished for 2026-05-03
+2026-09-14 20:28:58,384 INFO run starting for 2026-05-04
+2026-09-14 20:28:58,398 INFO extract: 1285 rows from ../data/scans_2026-05-04.csv
+2026-09-14 20:28:58,399 INFO contract: ok, 9 columns, 1285 rows
+2026-09-14 20:28:58,472 WARNING quarantined 29 rows to quarantine/rejects_2026-05-04.csv
+2026-09-14 20:28:58,478 INFO transform: 1285 read = 1253 good + 29 rejected + 3 duplicates
+2026-09-14 20:28:58,612 INFO load: 1253 rows committed for 2026-05-04
+2026-09-14 20:28:58,618 INFO run finished for 2026-05-04
+2026-09-14 20:29:07,401 INFO run starting for 2026-05-05
+2026-09-14 20:29:07,413 INFO extract: 1212 rows from ../data/scans_2026-05-05.csv
+2026-09-14 20:29:07,414 INFO contract: ok, 9 columns, 1212 rows
+2026-09-14 20:29:07,485 WARNING quarantined 35 rows to quarantine/rejects_2026-05-05.csv
+2026-09-14 20:29:07,490 INFO transform: 1212 read = 1169 good + 35 rejected + 8 duplicates
+2026-09-14 20:29:07,614 INFO load: 1169 rows committed for 2026-05-05
+2026-09-14 20:29:07,619 INFO run finished for 2026-05-05
+2026-09-14 20:29:16,072 INFO run starting for 2026-05-06
+2026-09-14 20:29:16,083 INFO extract: 1291 rows from ../data/scans_2026-05-06.csv
+2026-09-14 20:29:16,084 INFO contract: ok, 9 columns, 1291 rows
+2026-09-14 20:29:16,143 WARNING quarantined 34 rows to quarantine/rejects_2026-05-06.csv
+2026-09-14 20:29:16,149 INFO transform: 1291 read = 1250 good + 34 rejected + 7 duplicates
+2026-09-14 20:29:16,273 INFO load: 1250 rows committed for 2026-05-06
+2026-09-14 20:29:16,279 INFO run finished for 2026-05-06
+2026-09-14 20:29:24,591 INFO run starting for 2026-05-07
+2026-09-14 20:29:24,603 INFO extract: 1187 rows from ../data/scans_2026-05-07.csv
+2026-09-14 20:29:24,604 INFO contract: ok, 9 columns, 1187 rows
+2026-09-14 20:29:24,671 WARNING quarantined 25 rows to quarantine/rejects_2026-05-07.csv
+2026-09-14 20:29:24,676 INFO transform: 1187 read = 1154 good + 25 rejected + 8 duplicates
+2026-09-14 20:29:24,792 INFO load: 1154 rows committed for 2026-05-07
+2026-09-14 20:29:24,797 INFO run finished for 2026-05-07
+2026-09-14 20:29:33,136 INFO run starting for 2026-05-08
+2026-09-14 20:29:33,148 INFO extract: 1205 rows from ../data/scans_2026-05-08.csv
+2026-09-14 20:29:33,149 INFO contract: ok, 9 columns, 1205 rows
+2026-09-14 20:29:33,230 WARNING quarantined 30 rows to quarantine/rejects_2026-05-08.csv
+2026-09-14 20:29:33,235 INFO transform: 1205 read = 1170 good + 30 rejected + 5 duplicates
+2026-09-14 20:29:33,357 INFO load: 1170 rows committed for 2026-05-08
+2026-09-14 20:29:33,363 INFO run finished for 2026-05-08
+2026-09-14 20:29:41,766 INFO run starting for 2026-05-09
+2026-09-14 20:29:41,778 INFO extract: 1307 rows from ../data/scans_2026-05-09.csv
+2026-09-14 20:29:41,779 INFO contract: ok, 9 columns, 1307 rows
+2026-09-14 20:29:41,847 WARNING quarantined 30 rows to quarantine/rejects_2026-05-09.csv
+2026-09-14 20:29:41,853 INFO transform: 1307 read = 1268 good + 30 rejected + 9 duplicates
+2026-09-14 20:29:41,977 INFO load: 1268 rows committed for 2026-05-09
+2026-09-14 20:29:41,982 INFO run finished for 2026-05-09
+2026-09-14 20:30:59,037 INFO run starting for 2026-05-11
+2026-09-14 20:30:59,055 INFO extract: 1242 rows from ../data/scans_2026-05-11.csv
+2026-09-14 20:30:59,056 INFO contract: ok, 9 columns, 1242 rows
+2026-09-14 20:30:59,201 WARNING quarantined 34 rows to quarantine/rejects_2026-05-11.csv
+2026-09-14 20:30:59,208 INFO transform: 1242 read = 1203 good + 34 rejected + 5 duplicates
+2026-09-14 20:30:59,327 INFO load: 1203 rows committed for 2026-05-11
+2026-09-14 20:30:59,333 INFO run finished for 2026-05-11
+2026-09-14 20:31:07,645 INFO run starting for 2026-05-12
+2026-09-14 20:31:07,656 INFO extract: 1103 rows from ../data/scans_2026-05-12.csv
+2026-09-14 20:31:07,657 INFO contract: ok, 9 columns, 1103 rows
+2026-09-14 20:31:07,723 WARNING quarantined 30 rows to quarantine/rejects_2026-05-12.csv
+2026-09-14 20:31:07,729 INFO transform: 1103 read = 1070 good + 30 rejected + 3 duplicates
+2026-09-14 20:31:07,840 INFO load: 1070 rows committed for 2026-05-12
+2026-09-14 20:31:07,846 INFO run finished for 2026-05-12
+2026-09-14 20:31:16,107 INFO run starting for 2026-05-13
+2026-09-14 20:31:16,121 INFO extract: 2546 rows from ../data/scans_2026-05-13.csv
+2026-09-14 20:31:16,122 INFO contract: ok, 9 columns, 2546 rows
+2026-09-14 20:31:16,185 WARNING quarantined 30 rows to quarantine/rejects_2026-05-13.csv
+2026-09-14 20:31:16,192 INFO transform: 2546 read = 1234 good + 30 rejected + 1282 duplicates
+2026-09-14 20:31:16,305 INFO load: 1234 rows committed for 2026-05-13
+2026-09-14 20:31:16,311 INFO run finished for 2026-05-13
+2026-09-14 20:31:24,640 INFO run starting for 2026-05-14
+2026-09-14 20:31:24,653 INFO extract: 1063 rows from ../data/scans_2026-05-14.csv
+2026-09-14 20:31:24,654 INFO contract: ok, 9 columns, 1063 rows
+2026-09-14 20:31:24,729 WARNING quarantined 26 rows to quarantine/rejects_2026-05-14.csv
+2026-09-14 20:31:24,734 INFO transform: 1063 read = 1034 good + 26 rejected + 3 duplicates
+2026-09-14 20:31:24,837 INFO load: 1034 rows committed for 2026-05-14
+2026-09-14 20:31:24,842 INFO run finished for 2026-05-14
+2026-09-14 20:31:38,384 INFO run starting for 2026-05-16
+2026-09-14 20:31:38,397 INFO extract: 1123 rows from ../data/scans_2026-05-16.csv
+2026-09-14 20:31:38,398 INFO contract: ok, 9 columns, 1123 rows
+2026-09-14 20:31:38,465 WARNING quarantined 34 rows to quarantine/rejects_2026-05-16.csv
+2026-09-14 20:31:38,470 INFO transform: 1123 read = 1085 good + 34 rejected + 4 duplicates
+2026-09-14 20:31:38,581 INFO load: 1085 rows committed for 2026-05-16
+2026-09-14 20:31:38,586 INFO run finished for 2026-05-16
+2026-09-14 20:31:46,944 INFO run starting for 2026-05-17
+2026-09-14 20:31:46,958 INFO extract: 1340 rows from ../data/scans_2026-05-17.csv
+2026-09-14 20:31:46,959 INFO contract: ok, 9 columns, 1340 rows
+2026-09-14 20:31:47,041 WARNING quarantined 30 rows to quarantine/rejects_2026-05-17.csv
+2026-09-14 20:31:47,046 INFO transform: 1340 read = 1305 good + 30 rejected + 5 duplicates
+2026-09-14 20:31:47,302 INFO load: 1305 rows committed for 2026-05-17
+2026-09-14 20:31:47,308 INFO run finished for 2026-05-17
+2026-09-14 20:31:55,723 INFO run starting for 2026-05-18
+2026-09-14 20:31:55,734 INFO extract: 1167 rows from ../data/scans_2026-05-18.csv
+2026-09-14 20:31:55,735 INFO contract: ok, 9 columns, 1167 rows
+2026-09-14 20:31:55,807 WARNING quarantined 30 rows to quarantine/rejects_2026-05-18.csv
+2026-09-14 20:31:55,812 INFO transform: 1167 read = 1134 good + 30 rejected + 3 duplicates
+2026-09-14 20:31:55,921 INFO load: 1134 rows committed for 2026-05-18
+2026-09-14 20:31:55,926 INFO run finished for 2026-05-18
+2026-09-14 20:32:04,361 INFO run starting for 2026-05-19
+2026-09-14 20:32:04,374 INFO extract: 1066 rows from ../data/scans_2026-05-19.csv
+2026-09-14 20:32:04,375 ERROR run FAILED for 2026-05-19: Contract violation: missing columns ['weight_kg']
+2026-09-14 20:32:12,129 INFO run starting for 2026-05-20
+2026-09-14 20:32:12,139 INFO extract: 1132 rows from ../data/scans_2026-05-20.csv
+2026-09-14 20:32:12,140 INFO contract: ok, 9 columns, 1132 rows
+2026-09-14 20:32:12,219 WARNING quarantined 38 rows to quarantine/rejects_2026-05-20.csv
+2026-09-14 20:32:12,224 INFO transform: 1132 read = 1086 good + 38 rejected + 8 duplicates
+2026-09-14 20:32:12,336 INFO load: 1086 rows committed for 2026-05-20
+2026-09-14 20:32:12,358 INFO run finished for 2026-05-20
+2026-09-14 20:32:20,685 INFO run starting for 2026-05-21
+2026-09-14 20:32:20,697 INFO extract: 1222 rows from ../data/scans_2026-05-21.csv
+2026-09-14 20:32:20,698 INFO contract: ok, 9 columns, 1222 rows
+2026-09-14 20:32:20,772 WARNING quarantined 23 rows to quarantine/rejects_2026-05-21.csv
+2026-09-14 20:32:20,778 INFO transform: 1222 read = 1196 good + 23 rejected + 3 duplicates
+2026-09-14 20:32:20,896 INFO load: 1196 rows committed for 2026-05-21
+2026-09-14 20:32:20,903 INFO run finished for 2026-05-21
